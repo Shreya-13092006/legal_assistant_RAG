@@ -1,0 +1,6 @@
+name: opt_rerank
+mode: retrieval
+dataset: data/gold/qa_v1.jsonl
+cells:
+  R-H: [retrieval/hybrid_rrf.yaml]
+  RR: [retrieval/hybrid_rrf.yaml, experiments/rerank_llm.yaml]

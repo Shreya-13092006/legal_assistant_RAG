@@ -1,0 +1,2 @@
+# V0: generate -> finalize; D-checks recorded but not enforced
+verification: {deterministic: true, claim_judge: false, enforce: false}

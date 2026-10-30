@@ -1,0 +1,3 @@
+# R-B: BM25 only
+retrieval: {id_lookup: false, vector: {enabled: false}, bm25: {enabled: true}, graph: {enabled: false}}
+fusion: {method: none}

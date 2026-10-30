@@ -1,0 +1,138 @@
+{
+  "status": "pass",
+  "created": "2026-10-30T09:04:53.260786+00:00",
+  "snapshot_hash": "23962f55e71e88f43c7683a85be53dc1df748be281cc36e1841bf17cdc5666a2",
+  "corpus_hash": "7cf17dd095a11abbf46c35ae3465886d9e4eb5ac1d08d3f8c9ef21be98680546",
+  "rules": [
+    {
+      "rule": "G1",
+      "passed": true,
+      "details": [],
+      "warnings": [
+        "no expected section lists supplied (data/expected/<ACT>.txt); count check skipped"
+      ]
+    },
+    {
+      "rule": "G2",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G3",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G4",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G5",
+      "passed": true,
+      "details": [],
+      "warnings": [
+        "MAP-0001: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0002: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0003: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0004: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0005: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0006: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0007: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0008: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0009: reviewer is SEED-DRAFT (not human-reviewed yet)",
+        "MAP-0010: reviewer is SEED-DRAFT (not human-reviewed yet)"
+      ]
+    },
+    {
+      "rule": "G6",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G7",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G8",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G9",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G10",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G11",
+      "passed": true,
+      "details": [],
+      "warnings": []
+    },
+    {
+      "rule": "G12",
+      "passed": true,
+      "details": [],
+      "warnings": [
+        "SRC-BNS-GAZETTE-2023: no sha256 recorded (source not yet registered)",
+        "SRC-CONCORDANCE-SEED: no sha256 recorded (source not yet registered)",
+        "SRC-IPC-INDIACODE: no sha256 recorded (source not yet registered)",
+        "SRC-JUDG-JOSEPH-SHINE-2018: no sha256 recorded (source not yet registered)",
+        "SRC-JUDG-NAVTEJ-2018: no sha256 recorded (source not yet registered)"
+      ]
+    }
+  ],
+  "coverage": {
+    "IDENTICAL": {
+      "verified": 2,
+      "rejected": 1
+    },
+    "MODIFIED": {
+      "verified": 1
+    },
+    "SPLIT": {
+      "verified": 1
+    },
+    "MERGED": {
+      "verified": 1
+    },
+    "OMITTED": {
+      "verified": 1
+    },
+    "NEW": {
+      "verified": 1
+    },
+    "PARTIAL": {
+      "disputed": 1
+    },
+    "UNDETERMINED": {
+      "unresolved": 1
+    }
+  },
+  "unreviewed_sections": [],
+  "unresolved_xrefs": [],
+  "overrides": [],
+  "counts": {
+    "acts": 2,
+    "sections": 17,
+    "provisions": 38,
+    "chunks": 57,
+    "mappings": 10,
+    "sources": 5,
+    "xrefs": 1
+  }
+}

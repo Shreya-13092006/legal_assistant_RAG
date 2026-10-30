@@ -1,0 +1,102 @@
+# M1 seed corpus — IPC (SDD 6.3 task 1).
+# STATUS: VERIFY. Text was drafted from memory by an AI assistant, NOT transcribed from the official
+# PDF. Before this is used as evidence, a human must check every provision against India Code and
+# fill in page numbers (Appendix A, A-4).
+act: {code: IPC, name: "Indian Penal Code", year: 1860, text_as_of: "2024-06-30", act_number: "45 of 1860",
+      repealed_on: "2024-07-01", jurisdiction_note: "Applies to offences committed before BNS commencement (VERIFY A-1, A-3)"}
+source_id: SRC-IPC-INDIACODE
+chapters:
+  - number: VI
+    title: "Of offences against the State"
+    sections:
+      - number: "124A"
+        title: "Sedition"
+        status_note: "Operation kept in abeyance by Supreme Court order in S.G. Vombatkere v. Union of India (2022) (VERIFY A-11)."
+        provisions:
+          - kind: body
+            text: "Whoever, by words, either spoken or written, or by signs, or by visible representation, or otherwise, brings or attempts to bring into hatred or contempt, or excites or attempts to excite disaffection towards, the Government established by law in India, shall be punished with imprisonment for life, to which fine may be added, or with imprisonment which may extend to three years, to which fine may be added, or with fine."
+          - kind: explanation
+            n: 1
+            text: "The expression \"disaffection\" includes disloyalty and all feelings of enmity."
+          - kind: explanation
+            n: 2
+            text: "Comments expressing disapprobation of the measures of the Government with a view to obtain their alteration by lawful means, without exciting or attempting to excite hatred, contempt or disaffection, do not constitute an offence under this section."
+          - kind: explanation
+            n: 3
+            text: "Comments expressing disapprobation of the administrative or other action of the Government without exciting or attempting to excite hatred, contempt or disaffection, do not constitute an offence under this section."
+  - number: XVI
+    title: "Of offences affecting the human body"
+    sections:
+      - number: "299"
+        title: "Culpable homicide"
+        provisions:
+          - kind: body
+            text: "Whoever causes death by doing an act with the intention of causing death, or with the intention of causing such bodily injury as is likely to cause death, or with the knowledge that he is likely by such act to cause death, commits the offence of culpable homicide."
+          - kind: illustration
+            label: a
+            text: "A lays sticks and turf over a pit, with the intention of thereby causing death, or with the knowledge that death is likely to be thereby caused. Z, believing the ground to be firm, treads on it, falls in and is killed. A has committed the offence of culpable homicide."
+          - kind: explanation
+            n: 1
+            text: "A person who causes bodily injury to another who is labouring under a disorder, disease or bodily infirmity, and thereby accelerates the death of that other, shall be deemed to have caused his death."
+          - kind: explanation
+            n: 2
+            text: "Where death is caused by bodily injury, the person who causes such bodily injury shall be deemed to have caused the death, although by resorting to proper remedies and skilful treatment the death might have been prevented."
+          - kind: explanation
+            n: 3
+            text: "The causing of the death of a child in the mother's womb is not homicide. But it may amount to culpable homicide to cause the death of a living child, if any part of that child has been brought forth, though the child may not have breathed or been completely born."
+      - number: "302"
+        title: "Punishment for murder"
+        provisions:
+          - kind: body
+            text: "Whoever commits murder shall be punished with death, or imprisonment for life, and shall also be liable to fine."
+      - number: "304A"
+        title: "Causing death by negligence"
+        provisions:
+          - kind: body
+            text: "Whoever causes the death of any person by doing any rash or negligent act not amounting to culpable homicide, shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both."
+      - number: "377"
+        title: "Unnatural offences"
+        status_note: "Read down by the Supreme Court in Navtej Singh Johar v. Union of India (2018) insofar as it criminalised consensual sexual conduct between adults (VERIFY A-11)."
+        status_source_id: SRC-JUDG-NAVTEJ-2018
+        provisions:
+          - kind: body
+            text: "Whoever voluntarily has carnal intercourse against the order of nature with any man, woman or animal, shall be punished with imprisonment for life, or with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine."
+          - kind: explanation
+            n: 1
+            text: "Penetration is sufficient to constitute the carnal intercourse necessary to the offence described in this section."
+  - number: XVII
+    title: "Of offences against property"
+    sections:
+      - number: "417"
+        title: "Punishment for cheating"
+        provisions:
+          - kind: body
+            text: "Whoever cheats shall be punished with imprisonment of either description for a term which may extend to one year, or with fine, or with both."
+      - number: "420"
+        title: "Cheating and dishonestly inducing delivery of property"
+        provisions:
+          - kind: body
+            text: "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security, or anything which is signed or sealed, and which is capable of being converted into a valuable security, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."
+  - number: XX
+    title: "Of offences relating to marriage"
+    sections:
+      - number: "497"
+        title: "Adultery"
+        status: struck_down
+        status_note: "Declared unconstitutional by the Supreme Court in Joseph Shine v. Union of India (2018) (VERIFY A-11)."
+        status_source_id: SRC-JUDG-JOSEPH-SHINE-2018
+        provisions:
+          - kind: body
+            in_force: false
+            text: "Whoever has sexual intercourse with a person who is and whom he knows or has reason to believe to be the wife of another man, without the consent or connivance of that man, such sexual intercourse not amounting to the offence of rape, is guilty of the offence of adultery, and shall be punished with imprisonment of either description for a term which may extend to five years, or with fine, or with both. In such case the wife shall not be punishable as an abettor."
+  - number: XXA
+    title: "Of cruelty by husband or relatives of husband"
+    sections:
+      - number: "498A"
+        title: "Husband or relative of husband of a woman subjecting her to cruelty"
+        provisions:
+          - kind: body
+            text: "Whoever, being the husband or the relative of the husband of a woman, subjects such woman to cruelty shall be punished with imprisonment for a term which may extend to three years and shall also be liable to fine."
+          - kind: explanation
+            n: 1
+            text: "For the purposes of this section, \"cruelty\" means— (a) any wilful conduct which is of such a nature as is likely to drive the woman to commit suicide or to cause grave injury or danger to life, limb or health (whether mental or physical) of the woman; or (b) harassment of the woman where such harassment is with a view to coercing her or any person related to her to meet any unlawful demand for any property or valuable security or is on account of failure by her or any person related to her to meet such demand."

@@ -1,0 +1,5 @@
+name: smoke
+mode: end_to_end
+dataset: data/gold/smoke_v0.jsonl
+cells:
+  T1: [retrieval/hybrid_rrf.yaml, verification/full.yaml, workflow/retry1.yaml]

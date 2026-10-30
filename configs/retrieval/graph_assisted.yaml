@@ -1,0 +1,3 @@
+# R-G: exact-ID + vector seeds + graph expansion (no BM25)
+retrieval: {id_lookup: true, vector: {enabled: true}, bm25: {enabled: false}, graph: {enabled: true}}
+fusion: {method: rrf}

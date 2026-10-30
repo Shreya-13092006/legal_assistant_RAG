@@ -1,0 +1,4 @@
+name: opt_ocr
+mode: ocr
+pages: data/ocr_experiment/pages.yaml
+levels: [{dpi: 300, noise: 0.0, skew: 0.0, jpeg: 95}, {dpi: 200, noise: 0.05, skew: 1.0, jpeg: 70}]

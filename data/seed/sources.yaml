@@ -1,0 +1,30 @@
+# Seed source registry. sha256/url/page values must be filled in when the real PDFs are
+# registered with `lawrag sources register` (SDD 3.2.1). STATUS: VERIFY (A-5, A-6).
+sources:
+  - source_id: SRC-IPC-INDIACODE
+    title: "Indian Penal Code, 1860 (as in force on cutoff) — India Code"
+    kind: india_code
+    authority_rank: 1
+    publisher: "Legislative Department, Government of India"
+    url: null
+  - source_id: SRC-BNS-GAZETTE-2023
+    title: "Bharatiya Nyaya Sanhita, 2023 — Gazette of India"
+    kind: gazette
+    authority_rank: 1
+    publisher: "Government of India"
+    url: null
+  - source_id: SRC-CONCORDANCE-SEED
+    title: "Placeholder for the official IPC–BNS correspondence table (to be identified, A-5)"
+    kind: concordance_official
+    authority_rank: 2
+    url: null
+  - source_id: SRC-JUDG-JOSEPH-SHINE-2018
+    title: "Joseph Shine v. Union of India (Supreme Court of India, 2018)"
+    kind: judgment
+    authority_rank: 3
+    citation: "(2019) 3 SCC 39 (VERIFY)"
+  - source_id: SRC-JUDG-NAVTEJ-2018
+    title: "Navtej Singh Johar v. Union of India (Supreme Court of India, 2018)"
+    kind: judgment
+    authority_rank: 3
+    citation: "(2018) 10 SCC 1 (VERIFY)"

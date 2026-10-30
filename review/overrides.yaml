@@ -1,0 +1,7 @@
+# Parser overrides with provenance (SDD 3.2.3). Each entry replaces parsed fields of one section.
+# - uid: IPC:302
+#   reason: "marginal note merged into body text by the parser"
+#   page: 120
+#   by: R1
+#   section: {title: "Punishment for murder", provisions: [{kind: body, text: "..."}]}
+[]

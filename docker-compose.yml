@@ -1,0 +1,22 @@
+services:
+  neo4j:
+    image: neo4j:5.26-community   # 5.x LTS with native vector indexes (VERIFY A-9)
+    container_name: lawrag-neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD:-lawrag-dev-password}"
+      NEO4J_server_memory_heap_initial__size: 1G
+      NEO4J_server_memory_heap_max__size: 1536M
+      NEO4J_server_memory_pagecache_size: 512M
+    volumes:
+      - lawrag_neo4j_data:/data       # named volume, never a bind mount into OneDrive
+    healthcheck:
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p \"$${NEO4J_AUTH#neo4j/}\" 'RETURN 1' || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  lawrag_neo4j_data:

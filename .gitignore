@@ -1,0 +1,14 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+cache/
+runs/
+data/interim/
+data/raw/*.pdf
+data/ocr_experiment/*
+!data/ocr_experiment/.gitkeep
+*.egg-info/
+.coverage

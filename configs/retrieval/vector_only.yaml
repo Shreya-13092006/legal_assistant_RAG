@@ -1,0 +1,3 @@
+# R-V: vector only
+retrieval: {id_lookup: false, vector: {enabled: true}, bm25: {enabled: false}, graph: {enabled: false}}
+fusion: {method: none}

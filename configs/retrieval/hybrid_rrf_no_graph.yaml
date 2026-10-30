@@ -1,0 +1,3 @@
+# R-H-G: graph ablation
+retrieval: {id_lookup: true, vector: {enabled: true}, bm25: {enabled: true}, graph: {enabled: false}}
+fusion: {method: rrf}

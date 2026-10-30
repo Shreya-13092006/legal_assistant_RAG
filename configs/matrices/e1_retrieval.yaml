@@ -1,0 +1,9 @@
+name: e1_retrieval
+mode: retrieval        # retrieval + context only, no generation
+dataset: data/gold/qa_v1.jsonl
+cells:
+  R-V: [retrieval/vector_only.yaml]
+  R-B: [retrieval/bm25_only.yaml]
+  R-G: [retrieval/graph_assisted.yaml]
+  R-H: [retrieval/hybrid_rrf.yaml]
+  R-H-G: [retrieval/hybrid_rrf_no_graph.yaml]

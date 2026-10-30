@@ -1,0 +1,2 @@
+# V-DJ
+verification: {deterministic: true, claim_judge: true, enforce: true}

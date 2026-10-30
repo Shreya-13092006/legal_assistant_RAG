@@ -1,0 +1,102 @@
+# M1 seed corpus — BNS (SDD 6.3 task 1).
+# STATUS: VERIFY. Text was drafted from memory by an AI assistant, NOT transcribed from the Gazette.
+# A human must check every provision against the official text and fill in page numbers (A-2, A-4).
+act: {code: BNS, name: "Bharatiya Nyaya Sanhita", year: 2023, text_as_of: "2024-07-01", act_number: "45 of 2023",
+      commenced_on: "2024-07-01"}
+source_id: SRC-BNS-GAZETTE-2023
+chapters:
+  - number: V
+    title: "Of offences against woman and child"
+    sections:
+      - number: "85"
+        title: "Husband or relative of husband of a woman subjecting her to cruelty"
+        provisions:
+          - kind: body
+            text: "Whoever, being the husband or the relative of the husband of a woman, subjects such woman to cruelty shall be punished with imprisonment for a term which may extend to three years and shall also be liable to fine."
+      - number: "86"
+        title: "Cruelty defined"
+        provisions:
+          - kind: body
+            text: "For the purposes of section 85, \"cruelty\" means— (a) any wilful conduct which is of such a nature as is likely to drive the woman to commit suicide or to cause grave injury or danger to life, limb or health (whether mental or physical) of the woman; or (b) harassment of the woman where such harassment is with a view to coercing her or any person related to her to meet any unlawful demand for any property or valuable security or is on account of failure by her or any person related to her to meet such demand."
+  - number: VI
+    title: "Of offences affecting the human body"
+    sections:
+      - number: "100"
+        title: "Culpable homicide"
+        provisions:
+          - kind: body
+            text: "Whoever causes death by doing an act with the intention of causing death, or with the intention of causing such bodily injury as is likely to cause death, or with the knowledge that he is likely by such act to cause death, commits the offence of culpable homicide."
+          - kind: illustration
+            label: a
+            text: "A lays sticks and turf over a pit, with the intention of thereby causing death, or with the knowledge that death is likely to be thereby caused. Z, believing the ground to be firm, treads on it, falls in and is killed. A has committed the offence of culpable homicide."
+          - kind: explanation
+            n: 1
+            text: "A person who causes bodily injury to another who is labouring under a disorder, disease or bodily infirmity, and thereby accelerates the death of that other, shall be deemed to have caused his death."
+          - kind: explanation
+            n: 2
+            text: "Where death is caused by bodily injury, the person who causes such bodily injury shall be deemed to have caused the death, although by resorting to proper remedies and skilful treatment the death might have been prevented."
+          - kind: explanation
+            n: 3
+            text: "The causing of the death of a child in the mother's womb is not homicide. But it may amount to culpable homicide to cause the death of a living child, if any part of that child has been brought forth, though the child may not have breathed or been completely born."
+      - number: "103"
+        title: "Punishment for murder"
+        provisions:
+          - kind: subsection
+            label: "1"
+            text: "Whoever commits murder shall be punished with death or imprisonment for life, and shall also be liable to fine."
+          - kind: subsection
+            label: "2"
+            text: "When a group of five or more persons acting in concert commits murder on the ground of race, caste or community, sex, place of birth, language, personal belief or any other similar ground each member of such group shall be punished with death or with imprisonment for life, and shall also be liable to fine."
+      - number: "106"
+        title: "Causing death by negligence"
+        provisions:
+          - kind: subsection
+            label: "1"
+            text: "Whoever causes death of any person by doing any rash or negligent act not amounting to culpable homicide, shall be punished with imprisonment of either description for a term which may extend to five years, and shall also be liable to fine; and if such act is done by a registered medical practitioner while performing medical procedure, he shall be punished with imprisonment of either description for a term which may extend to two years, and shall also be liable to fine."
+          - kind: explanation
+            n: 1
+            target: "(1)"
+            text: "For the purposes of this sub-section, \"registered medical practitioner\" means a medical practitioner who possesses any medical qualification recognised under the National Medical Commission Act, 2019 and whose name has been entered in the National Medical Register or a State Medical Register under that Act."
+          - kind: subsection
+            label: "2"
+            in_force: false
+            status_note: "Excluded from the 1 July 2024 commencement notification (VERIFY A-1)."
+            text: "Whoever causes death of any person by rash and negligent driving of vehicle not amounting to culpable homicide, and escapes without reporting it to a police officer or a Magistrate soon after the incident, shall be punished with imprisonment of either description of a term which may extend to ten years, and shall also be liable to fine."
+  - number: VII
+    title: "Of offences against the State"
+    sections:
+      - number: "152"
+        title: "Act endangering sovereignty, unity and integrity of India"
+        provisions:
+          - kind: body
+            text: "Whoever, purposely or knowingly, by words, either spoken or written, or by signs, or by visible representation, or by electronic communication or by use of financial mean, or otherwise, excites or attempts to excite, secession or armed rebellion or subversive activities, or encourages feelings of separatist activities or endangers sovereignty or unity and integrity of India; or indulges in or commits any such act shall be punished with imprisonment for life or with imprisonment which may extend to seven years, and shall also be liable to fine."
+          - kind: explanation
+            n: 1
+            text: "Comments expressing disapprobation of the measures, or administrative or other action of the Government with a view to obtain their alteration by lawful means without exciting or attempting to excite the activities referred to in this section do not constitute an offence under this section."
+  - number: XVII
+    title: "Of offences against property"
+    sections:
+      - number: "304"
+        title: "Snatching"
+        provisions:
+          - kind: subsection
+            label: "1"
+            text: "Theft is snatching if, in order to commit theft, the offender suddenly or quickly or forcibly seizes or secures or grabs or takes away from any person or from his possession any movable property."
+          - kind: subsection
+            label: "2"
+            text: "Whoever commits snatching, shall be punished with imprisonment of either description for a term which may extend to three years, and shall also be liable to fine."
+      - number: "318"
+        title: "Cheating"
+        provisions:
+          - kind: subsection
+            label: "1"
+            text: "Whoever, by deceiving any person, fraudulently or dishonestly induces the person so deceived to deliver any property to any person, or to consent that any person shall retain any property, or intentionally induces the person so deceived to do or omit to do anything which he would not do or omit if he were not so deceived, and which act or omission causes or is likely to cause damage or harm to that person in body, mind, reputation or property, is said to \"cheat\"."
+          - kind: subsection
+            label: "2"
+            text: "Whoever cheats shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both."
+          - kind: subsection
+            label: "3"
+            text: "Whoever cheats with the knowledge that he is likely thereby to cause wrongful loss to a person whose interest in the transaction to which the cheating relates, he was bound, either by law, or by a legal contract, to protect, shall be punished with imprisonment of either description for a term which may extend to five years, or with fine, or with both."
+          - kind: subsection
+            label: "4"
+            text: "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security, or anything which is signed or sealed, and which is capable of being converted into a valuable security, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."

@@ -1,0 +1,6 @@
+name: e3_retry_abstain
+mode: end_to_end
+dataset: data/gold/qa_v1.jsonl
+cells:
+  T0: [retrieval/hybrid_rrf.yaml, verification/full.yaml, workflow/retry0.yaml]
+  T1: [retrieval/hybrid_rrf.yaml, verification/full.yaml, workflow/retry1.yaml]

@@ -1,0 +1,13 @@
+# Secondary sources (SDD 3.3.2): only used when corpus.include_secondary = true; never sole support
+# for a mapping claim (D5). These are short SUMMARY NOTES, not judgment text. STATUS: VERIFY.
+secondary:
+  - source_id: SRC-JUDG-JOSEPH-SHINE-2018
+    paragraphs:
+      - para_range: "summary"
+        text: "Summary note (not the judgment text): in Joseph Shine v. Union of India (2018), the Supreme Court of India held section 497 of the Indian Penal Code unconstitutional, so adultery ceased to be a criminal offence."
+        discusses: ["IPC:497"]
+  - source_id: SRC-JUDG-NAVTEJ-2018
+    paragraphs:
+      - para_range: "summary"
+        text: "Summary note (not the judgment text): in Navtej Singh Johar v. Union of India (2018), the Supreme Court of India read down section 377 of the Indian Penal Code so that it no longer applies to consensual sexual conduct between adults."
+        discusses: ["IPC:377"]

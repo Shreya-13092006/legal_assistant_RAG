@@ -1,0 +1,4 @@
+llm:
+  roles:
+    generator: {provider: ollama, model: "llama3.2"}
+    judge: {provider: ollama, model: "llama3.2"}

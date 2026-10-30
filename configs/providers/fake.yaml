@@ -1,0 +1,9 @@
+# Scripted FakeLLM (tests / offline demo without Ollama)
+llm:
+  roles:
+    generator: {provider: fake, model: "fake"}
+    decomposer: {provider: fake, model: "fake"}
+    judge: {provider: fake, model: "fake"}
+    analyzer_fallback: {provider: fake, model: "fake"}
+    eval_judge: {provider: fake, model: "fake"}
+  cache: {enabled: false}

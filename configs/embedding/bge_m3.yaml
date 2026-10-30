@@ -1,0 +1,2 @@
+# Initial candidate embedding model (needs the `embed` extra: torch CPU + sentence-transformers)
+embedding: {model: BAAI/bge-m3}

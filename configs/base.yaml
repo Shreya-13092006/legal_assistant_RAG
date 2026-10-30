@@ -1,0 +1,45 @@
+# Base configuration (SDD Appendix B). Overlays in configs/<group>/*.yaml are deep-merged on top.
+project:
+  name: lawrag
+  cutoff: {IPC: "2024-06-30", BNS: "2024-07-01"}   # VERIFY A-1
+  bns_commencement: "2024-07-01"                     # VERIFY A-1
+acts: [IPC, BNS]
+act_aliases:
+  IPC: ["indian penal code", "i.p.c.", "i.p.c", "penal code", "ipc"]
+  BNS: ["bharatiya nyaya sanhita", "nyaya sanhita", "new criminal law", "b.n.s.", "bns"]
+graph:
+  backend: memory               # memory | neo4j
+  snapshot_path: data/processed/graph.json
+  seed_dir: data/seed
+neo4j: {uri: "${NEO4J_URI:bolt://localhost:7687}", user: "${NEO4J_USER:neo4j}", database: neo4j}
+corpus: {variant: text, include_secondary: false}
+chunking: {max_tokens: 400, include_illustrations: true, section_summaries: true}
+embedding: {model: hashing-512, revision: null, batch_size: 16, threads: 10, normalize: true, cache_path: cache/embeddings}
+retrieval:
+  id_lookup: true
+  vector: {enabled: true, k: 30}
+  bm25: {enabled: true, k: 30}
+  graph: {enabled: true, seeds: 5, max_hops: 2, max_fanout: 10, max_expanded: 40, hop_penalty: 5}
+  act_filter: true
+fusion: {method: rrf, k_rrf: 60, top_n: 8, weights: {}, illustration_weight: 0.7}
+rerank: {enabled: false, kind: llm, top_in: 20, top_out: 8}
+context: {budget_tokens: 3500}
+workflow: {max_retries: 1, engine: langgraph, gate: {min_retriever_rank: 10}}
+verification: {deterministic: true, claim_judge: true, enforce: true, tau_partial: 0.6}
+analyzer: {llm_fallback: false}
+llm:
+  roles:
+    generator:         {provider: ollama, model: "llama3.2", temperature: 0}
+    decomposer:        {provider: ollama, model: "llama3.2", temperature: 0}
+    judge:             {provider: ollama, model: "llama3.2", temperature: 0}
+    analyzer_fallback: {provider: ollama, model: "llama3.2", temperature: 0}
+    eval_judge:        {provider: ollama, model: "llama3.2", temperature: 0}
+  cache: {enabled: true, path: cache/llm.sqlite}
+  budget_usd: "${LAWRAG_BUDGET_USD:5}"
+  ollama_host: "${OLLAMA_HOST:http://localhost:11434}"
+  timeout_s: 180
+  prices_per_mtok:              # USD per million tokens; VERIFY at use (A-15)
+    "anthropic/claude-haiku-5-5": {input: 0.10, output: 0.50}   # prompts <= 100K tokens
+api: {timeout_s: 120}
+logging: {level: INFO, json: true}
+seed: 13

@@ -1,0 +1,6 @@
+name: emb_benchmark
+mode: retrieval
+dataset: data/gold/qa_v1.jsonl
+cells:
+  bge-m3: [retrieval/vector_only.yaml, embedding/bge_m3.yaml]
+  bge-small: [retrieval/vector_only.yaml, embedding/bge_small.yaml]

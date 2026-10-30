@@ -1,0 +1,6 @@
+# Hosted low-cost model for final runs only, under LAWRAG_BUDGET_USD (SDD 3.8.1)
+llm:
+  roles:
+    generator: {provider: anthropic, model: "claude-haiku-5-5"}
+    judge: {provider: anthropic, model: "claude-haiku-5-5"}
+    eval_judge: {provider: anthropic, model: "claude-haiku-5-5"}

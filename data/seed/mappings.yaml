@@ -1,0 +1,109 @@
+# M1 seed mappings (SDD 6.3 task 1): every type and status is covered at least once.
+# STATUS: VERIFY. These were drafted from memory by an AI assistant. reviewed_by = SEED-DRAFT marks
+# them as NOT yet human-reviewed; a reviewer must confirm each row against an official concordance
+# row (A-4, A-5) and replace SEED-DRAFT with their identity before any result is reported.
+mappings:
+  - mapping_id: MAP-0001
+    type: IDENTICAL
+    status: verified
+    granularity: section
+    from: [{uid: "IPC:299"}]
+    to: [{uid: "BNS:100"}]
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 1, raw_row: "299 | 100 | Culpable homicide"}]
+    change_summary: "Definition of culpable homicide carried over without change in substance."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0002
+    type: IDENTICAL
+    status: verified
+    granularity: provision
+    from: [{uid: "IPC:302"}]
+    to: [{uid: "BNS:103(1)"}]
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 2, raw_row: "302 | 103(1) | Punishment for murder"}]
+    change_summary: "Punishment for murder carried over; BNS s.103(2) adds group murder on specified grounds."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0003
+    type: MODIFIED
+    status: verified
+    granularity: provision
+    from: [{uid: "IPC:304A"}]
+    to: [{uid: "BNS:106(1)"}]
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 3, raw_row: "304A | 106(1) | Causing death by negligence (modified)"}]
+    change_summary: "Maximum term raised from two years to five years with mandatory fine; a separate two-year limb for registered medical practitioners."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0004
+    type: SPLIT
+    status: verified
+    granularity: section
+    from: [{uid: "IPC:498A"}]
+    to: [{uid: "BNS:85"}, {uid: "BNS:86"}]
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 4, raw_row: "498A | 85, 86 | Cruelty by husband or relatives"}]
+    change_summary: "The offence is in BNS s.85; the Explanation defining cruelty became a separate section, BNS s.86."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0005
+    type: MERGED
+    status: verified
+    granularity: section
+    from: [{uid: "IPC:417"}, {uid: "IPC:420"}]
+    to: [{uid: "BNS:318"}]
+    evidence:
+      - {source_id: SRC-CONCORDANCE-SEED, row: 5, raw_row: "417 | 318(2) | Punishment for cheating"}
+      - {source_id: SRC-CONCORDANCE-SEED, row: 6, raw_row: "420 | 318(4) | Cheating and dishonestly inducing delivery of property"}
+    change_summary: "Cheating provisions consolidated in BNS s.318; the maximum term for simple cheating rose from one year to three years."
+    review_note: "IPC ss.415 and 418 are also believed to map into s.318 but are not in the seed corpus."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0006
+    type: OMITTED
+    status: verified
+    granularity: section
+    from: [{uid: "IPC:497"}]
+    to: []
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 7, raw_row: "497 | — | Deleted"}]
+    change_summary: "Adultery is not an offence under the BNS; IPC s.497 had been struck down in Joseph Shine (2018)."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0007
+    type: NEW
+    status: verified
+    granularity: section
+    from: []
+    to: [{uid: "BNS:304"}]
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 8, raw_row: "— | 304 | New: snatching"}]
+    change_summary: "Snatching is a new, separately defined offence in the BNS."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0008
+    type: PARTIAL
+    status: disputed
+    granularity: section
+    sources_agree: false
+    from: [{uid: "IPC:124A", role: partial}]
+    to: [{uid: "BNS:152", role: partial}]
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 9, raw_row: "124A | 152 | (modified)"}]
+    dispute_note: "Correspondence tables list BNS s.152 against IPC s.124A, but commentators describe s.152 as a differently framed offence (secession, armed rebellion, subversive activities) rather than sedition. This system does not resolve the disagreement."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0009
+    type: UNDETERMINED
+    status: unresolved
+    granularity: section
+    from: [{uid: "IPC:377"}]
+    to: []
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 10, raw_row: "377 | — | (no entry)"}]
+    review_note: "Evidence is insufficient to decide whether any part of s.377 has a BNS counterpart. Not established in this system."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
+  - mapping_id: MAP-0010
+    type: IDENTICAL
+    status: rejected
+    granularity: section
+    from: [{uid: "IPC:420"}]
+    to: [{uid: "BNS:304"}]
+    evidence: [{source_id: SRC-CONCORDANCE-SEED, row: 11, raw_row: "420 | 304 | (OCR misread, see audit)"}]
+    review_note: "Rejected example kept for audit: wrong pairing."
+    reviewed_by: SEED-DRAFT
+    reviewed_on: "2026-10-30"
