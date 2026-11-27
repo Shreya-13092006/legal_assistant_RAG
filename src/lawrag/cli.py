@@ -46,7 +46,8 @@ def doctor(config: list[str] = ConfigOpt, probe_llm: bool = typer.Option(True, h
     from lawrag.index.embedder import make_embedder
     cfg = _cfg(config)
     ok = lambda b: typer.style("OK " if b else "FAIL", fg="green" if b else "red")
-    typer.echo(f"{ok(sys.version_info[:2] == (3, 11))} Python {platform.python_version()} (3.11 expected)")
+    valid_py = (3, 11) <= sys.version_info[:2] < (3, 13)
+    typer.echo(f"{ok(valid_py)} Python {platform.python_version()} (3.11-3.12 expected)")
     if cfg.graph.backend == "neo4j":
         try:
             from lawrag.graph.neo4j_store import Neo4jGraphStore
@@ -106,6 +107,20 @@ def sources_register(pdf: Path, kind: str = typer.Option(...), authority_rank: i
     typer.echo(rec.model_dump_json(indent=2))
 
 
+def _parse_pages(pages: Optional[str]) -> list[int] | None:
+    if not pages:
+        return None
+    out: list[int] = []
+    for part in pages.split(","):
+        part = part.strip()
+        if "-" in part:
+            lo, hi = map(int, part.split("-", 1))
+            out.extend(range(lo, hi + 1))
+        else:
+            out.append(int(part))
+    return out
+
+
 @ingest_app.command("act")
 def ingest_act(pdf: Path, code: str = typer.Option(..., help="IPC or BNS"), name: str = typer.Option(...),
                year: int = typer.Option(...), text_as_of: str = typer.Option(...), source_id: str = typer.Option(...),
@@ -115,10 +130,10 @@ def ingest_act(pdf: Path, code: str = typer.Option(..., help="IPC or BNS"), name
     from lawrag.ingest.pdf_parser import body_blocks, parse_native, write_jsonl
     from lawrag.ingest.section_splitter import parse_act
     from lawrag.ingest.tree_builder import validate_tree
-    pg = [int(x) for x in pages.split(",")] if pages else None
+    pg = _parse_pages(pages)
     blocks = parse_native(pdf, source_id, pg)
     write_jsonl(blocks, PROJECT_ROOT / "data" / "interim" / f"{source_id}.blocks.jsonl")
-    tree, applied = parse_act([b for b in blocks if b.kind in ("text", "footnote")],
+    tree, applied = parse_act([b for b in blocks if b.kind in ("text", "footnote", "marginal")],
                               {"code": code, "name": name, "year": year, "text_as_of": text_as_of}, source_id,
                               PROJECT_ROOT / "review" / "overrides.yaml")
     warnings = validate_tree(tree, expected.read_text().split() if expected else None)
@@ -137,8 +152,7 @@ def ingest_act(pdf: Path, code: str = typer.Option(..., help="IPC or BNS"), name
 def ingest_concordance(pdf: Path, source_id: str = typer.Option(...), ipc_col: int = 0, bns_col: int = 1,
                        remark_col: Optional[int] = None, pages: Optional[str] = None):
     from lawrag.ingest.concordance_extractor import extract_tables, write_rows
-    rows, sus = extract_tables(pdf, source_id, ipc_col, bns_col, remark_col,
-                               [int(x) for x in pages.split(",")] if pages else None)
+    rows, sus = extract_tables(pdf, source_id, ipc_col, bns_col, remark_col, _parse_pages(pages))
     out = PROJECT_ROOT / "data" / "interim" / f"concordance_{source_id}.csv"
     write_rows(rows, out)
     typer.echo(f"{len(rows)} rows ({sum(1 for r in rows if r.parse_error)} with parse errors) -> {out}")

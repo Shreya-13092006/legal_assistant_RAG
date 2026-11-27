@@ -1,0 +1,41 @@
+[
+  {
+    "source_id": "SRC-BNS-GAZETTE-2023",
+    "title": "Bharatiya Nyaya Sanhita, 2023",
+    "kind": "gazette",
+    "authority_rank": 1,
+    "sha256": "67c92f7869420685e6cdc29b1bdde19fff91312b10241b3ed3e1163c5399600b",
+    "retrieved_on": "2026-11-27",
+    "publisher": null,
+    "url": null,
+    "local_path": "bns_2023.pdf",
+    "citation": null,
+    "license_note": null
+  },
+  {
+    "source_id": "SRC-CONCORDANCE-A",
+    "title": "IPC-BNS Comparative Concordance Table",
+    "kind": "concordance_official",
+    "authority_rank": 2,
+    "sha256": "986093ffeea29ef6bbb8b1364360a807262529bb90624e037f3f1e01bdb8f9b6",
+    "retrieved_on": "2026-11-27",
+    "publisher": null,
+    "url": null,
+    "local_path": "concordance_ipc_bns.pdf",
+    "citation": null,
+    "license_note": null
+  },
+  {
+    "source_id": "SRC-IPC-OFFICIAL",
+    "title": "Indian Penal Code, 1860",
+    "kind": "india_code",
+    "authority_rank": 1,
+    "sha256": "70cf2a4374a73202e2e441861ce8b2db31a3c6217816407dc1e9e5b4aa8935e2",
+    "retrieved_on": "2026-11-27",
+    "publisher": null,
+    "url": null,
+    "local_path": "ipc_1860.pdf",
+    "citation": null,
+    "license_note": null
+  }
+]
