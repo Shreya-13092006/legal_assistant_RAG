@@ -46,12 +46,19 @@ class Deps:
 
 
 def load_graph_data(cfg: RunConfig, embedder: CachedEmbedder, rebuild: bool = False) -> GraphData:
+    from lawrag.errors import ConfigError
     from lawrag.graph.loader import build_from_seed
     snap = cfg.path(cfg.graph.snapshot_path)
     if snap.exists() and not rebuild:
         data = GraphData.load(snap)
-        if data.meta.get("embedding_model") == embedder.model_id:
+        snap_model = data.meta.get("embedding_model")
+        if snap_model == embedder.model_id:
             return data
+        if any(snap.parent.glob("*.tree.json")):
+            raise ConfigError(
+                f"snapshot {snap} uses {snap_model!r}, active config uses {embedder.model_id!r}; "
+                "pass -c embedding/bge_m3.yaml or run 'lawrag load --source processed'"
+            )
         log.warning("graph snapshot was embedded with a different model; rebuilding from seed")
     data = build_from_seed(cfg, embedder)
     data.save(snap)

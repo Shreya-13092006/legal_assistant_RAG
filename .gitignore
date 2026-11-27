@@ -1,14 +1,41 @@
+# Secrets & local config
 .env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Environments & Python caches
 .venv/
 venv/
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Runtime, model & tool caches
 cache/
 runs/
+/hub/
+graphify-out/
+
+# Generated data, audit & review artifacts
 data/interim/
+data/processed/
 data/raw/*.pdf
 data/ocr_experiment/*
 !data/ocr_experiment/.gitkeep
-*.egg-info/
-.coverage
+reports/audit/
+review/queue.csv
+
+# OS & editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo

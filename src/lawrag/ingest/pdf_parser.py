@@ -17,6 +17,10 @@ from lawrag.models.legal import Block
 
 log = get_logger("ingest.pdf")
 DEVANAGARI = re.compile(r"[ऀ-ॿ]")
+_SPLIT_LINE_RE = re.compile(r"^\s*(?:(?:\d+\[)?\d{1,3}-?[A-Z]{0,2}\.\s*(?:\(|[A-Z\"\u201c\[])|CHAPTER\s+[IVXLC]+)")
+_IPC_FOOTNOTE_RE = re.compile(
+    r"^(?:This Bare Act is a government source|\d+\.\s+(?:Subs\.|Ins\.|Rep\.|Omitted|The word|The words|Added|Substituted|For ))"
+)
 
 
 def _fitz():
@@ -83,19 +87,40 @@ def parse_native(pdf: Path, source_id: str, pages: list[int] | None = None) -> l
             for bl in d["blocks"]:
                 if bl.get("type") != 0:
                     continue
-                spans = [s for ln in bl["lines"] for s in ln["spans"]]
-                raw = "\n".join("".join(s["text"] for s in ln["spans"]) for ln in bl["lines"])
+                lines = bl["lines"]
+                spans = [s for ln in lines for s in ln["spans"]]
+                raw = "\n".join("".join(s["text"] for s in ln["spans"]) for ln in lines)
                 if not raw.strip():
                     continue
                 size = sum(s["size"] for s in spans) / len(spans)
                 bold = any("bold" in s["font"].lower() or (s["flags"] & 16) for s in spans)
+                norm = normalize(raw)
                 kind = "text"
                 if DEVANAGARI.search(raw) and len(DEVANAGARI.findall(raw)) > 0.3 * len(raw.strip()):
                     kind = "devanagari"
-                elif size < body_size - 1.5 and bl["bbox"][1] > 0.75 * height:
-                    kind = "footnote"
-                blocks.append(Block(source_id=source_id, page=pno, bbox=tuple(bl["bbox"]), text=normalize(raw),
-                                    font_size=round(size, 2), bold=bold, kind=kind))
+                elif (bl["bbox"][0] < 65 or bl["bbox"][0] > 475) and size < body_size - 1.0 and bl["bbox"][1] <= 0.85 * height:
+                    kind = "header" if re.fullmatch(r"\d+\s+of\s+\d{4}\.?", norm) else "marginal"
+                elif bl["bbox"][1] > 0.72 * height and (size < body_size - 0.8 or _IPC_FOOTNOTE_RE.match(norm)):
+                    if not (norm.isupper() or re.match(r"^(?:\d+\[)?\d{1,3}[A-Z]{0,2}\.\s*.+?[—–]", norm)):
+                        kind = "footnote"
+                if kind == "text" and len(lines) > 1:
+                    groups: list[list[dict]] = [[]]
+                    for ln in lines:
+                        lt = "".join(s["text"] for s in ln["spans"])
+                        if groups[-1] and _SPLIT_LINE_RE.match(lt):
+                            groups.append([ln])
+                        else:
+                            groups[-1].append(ln)
+                    for grp in groups:
+                        graw = "\n".join("".join(s["text"] for s in ln["spans"]) for ln in grp)
+                        gnorm = normalize(graw)
+                        if gnorm:
+                            bbox = (grp[0]["bbox"][0], grp[0]["bbox"][1], grp[-1]["bbox"][2], grp[-1]["bbox"][3])
+                            blocks.append(Block(source_id=source_id, page=pno, bbox=bbox, text=gnorm,
+                                                font_size=round(size, 2), bold=bold, kind=kind))
+                else:
+                    blocks.append(Block(source_id=source_id, page=pno, bbox=tuple(bl["bbox"]), text=norm,
+                                        font_size=round(size, 2), bold=bold, kind=kind))
     return _strip_repeating(blocks, len(modes))
 
 
