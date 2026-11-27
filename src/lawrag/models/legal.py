@@ -94,7 +94,7 @@ class Block(BaseModel):
     text: str
     font_size: float | None = None
     bold: bool = False
-    kind: Literal["text", "footnote", "header", "devanagari"] = "text"
+    kind: Literal["text", "footnote", "header", "devanagari", "marginal"] = "text"
 
 
 class CrossRef(BaseModel):

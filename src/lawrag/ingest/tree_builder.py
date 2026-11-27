@@ -82,7 +82,9 @@ def build_tree(act: dict, chapters: list[dict], source_id: str) -> ActTree:
                 source_id=sec.get("source_id", source_id), page_start=sec.get("page"),
                 page_end=sec.get("page_end", sec.get("page")), text=text,
                 amendment_notes=sec.get("amendment_notes", []), status_note=sec.get("status_note"),
-                status_source_id=sec.get("status_source_id"),
+                status_source_id=sec.get("status_source_id") or (
+                    sec.get("source_id", source_id) if status in ("struck_down", "repealed") and sec.get("status_note") else None
+                ),
             ))
             tree.provisions.extend(provs)
     validate_tree(tree)

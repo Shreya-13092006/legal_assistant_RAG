@@ -4,25 +4,42 @@ from __future__ import annotations
 import html
 import re
 
-OUTCOME_BADGE = {"answered": ("Answered", "#1a7f37"), "partial": ("Partial", "#9a6700"),
-                 "abstained": ("Abstained", "#cf222e")}
-STATUS_BADGE = {"verified": ("verified", "#1a7f37"), "disputed": ("disputed", "#9a6700"),
-                "unresolved": ("unresolved", "#6e7781"), "proposed": ("proposed", "#6e7781"),
-                "rejected": ("rejected", "#cf222e")}
+OUTCOME_BADGE = {
+    "answered": ("Verified Answer", "#047857", "#ECFDF5", "#A7F3D0"),
+    "partial": ("Partial Answer", "#B45309", "#FFFBEB", "#FDE68A"),
+    "abstained": ("Abstained", "#B91C1C", "#FEF2F2", "#FECACA"),
+}
+STATUS_BADGE = {
+    "verified": ("Verified", "#047857", "#ECFDF5", "#A7F3D0"),
+    "disputed": ("Disputed", "#B45309", "#FFFBEB", "#FDE68A"),
+    "unresolved": ("Unresolved", "#475569", "#F1F5F9", "#CBD5E1"),
+    "proposed": ("Proposed", "#475569", "#F1F5F9", "#CBD5E1"),
+    "rejected": ("Rejected", "#B91C1C", "#FEF2F2", "#FECACA"),
+}
 VERDICT_ICON = {"SUPPORTED": "✅", "CONTRADICTED": "❌", "NOT_ENOUGH_INFO": "❔", None: "–"}
 
 
-def badge(label: str, color: str) -> str:
-    return (f"<span style='background:{color};color:white;padding:2px 8px;border-radius:10px;"
-            f"font-size:0.85em'>{html.escape(label)}</span>")
+def badge(label: str, fg: str, bg: str = "", border: str = "") -> str:
+    """Render a compact pill badge with explicit accessible contrast."""
+    bg_css = bg or fg
+    fg_css = fg if bg else "#FFFFFF"
+    border_css = f"border:1px solid {border};" if border else ""
+    return (
+        f"<span style='display:inline-flex;align-items:center;gap:4px;"
+        f"background:{bg_css};color:{fg_css};{border_css}"
+        f"padding:3px 10px;border-radius:999px;font-size:0.78rem;"
+        f"font-weight:600;letter-spacing:0.01em'>{html.escape(label)}</span>"
+    )
 
 
 def outcome_badge(outcome: str) -> str:
-    return badge(*OUTCOME_BADGE.get(outcome, (outcome, "#6e7781")))
+    spec = OUTCOME_BADGE.get(outcome)
+    return badge(*spec) if spec else badge(outcome, "#475569", "#F1F5F9", "#CBD5E1")
 
 
 def status_badge(status: str) -> str:
-    return badge(*STATUS_BADGE.get(status, (status, "#6e7781")))
+    spec = STATUS_BADGE.get(status)
+    return badge(*spec) if spec else badge(status, "#475569", "#F1F5F9", "#CBD5E1")
 
 
 def link_citations(md: str) -> str:
@@ -58,6 +75,10 @@ def diff_html(segments: list[dict], side: str) -> str:
         if s["op"] == "equal":
             out.append(text)
         else:
-            color = "#ffebe9" if side == "left" else "#dafbe1"
-            out.append(f"<span style='background:{color}'>{text}</span>")
+            bg = "#FEE2E2" if side == "left" else "#DCFCE7"
+            fg = "#991B1B" if side == "left" else "#166534"
+            out.append(
+                f"<span style='background:{bg};color:{fg};padding:1px 4px;"
+                f"border-radius:4px;font-weight:500'>{text}</span>"
+            )
     return " ".join(out)
