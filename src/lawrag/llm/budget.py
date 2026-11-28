@@ -31,7 +31,7 @@ class BudgetGuard:
     def price(self, provider: str, model: str, tin: int, tout: int) -> float:
         if provider in LOCAL_PROVIDERS:
             return 0.0
-        p = self.prices.get(f"{provider}/{model}")
+        p = self.prices.get(f"{provider}/{model}") or self.prices.get(f"{provider}/*")
         if p is None:
             raise BudgetExceeded(f"no price configured for {provider}/{model}; add it to llm.prices_per_mtok")
         return tin / 1e6 * p["input"] + tout / 1e6 * p["output"]

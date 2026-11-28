@@ -138,8 +138,8 @@ For the default local setup (`memory` graph + local `llama-server` or Ollama), y
 
 Choose one of the provider overlays in `configs/providers/`:
 
-1. **Local `llama-server` (`http://127.0.0.1:8080/v1`):**
-   Start `llama-server` on port `8080`, ensure the model name in [`configs/providers/llama_server.yaml`](configs/providers/llama_server.yaml) matches `/v1/models` (currently `gemma-4-E4B-it-uncensored-Q4_K_M.gguf`), and pass `-c providers/llama_server.yaml`.
+1. **Local or Remote `llama-server` (`http://127.0.0.1:8080/v1` or ngrok):**
+   Start `llama-server` on port `8080` (locally or on a remote GPU machine exposed via ngrok), optionally set `LLAMA_SERVER_URL` in `.env`, and pass `-c providers/llama_server.yaml`. `LLAMA_SERVER_MODEL` defaults to `auto` (auto-detected from `/v1/models`).
 2. **Local Ollama (`http://localhost:11434`):**
    ```powershell
    ollama pull llama3.2
