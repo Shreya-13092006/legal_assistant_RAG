@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NyayaGraph — IPC &amp; BNS Statutory Research Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;600&family=Lato:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to workspace</a>
+
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18" />
+            <path d="M5 7h14" />
+            <path d="M3 14c0 1.65 1.35 3 3 3s3-1.35 3-3L6 7 3 14Z" />
+            <path d="M15 14c0 1.65 1.35 3 3 3s3-1.35 3-3l-3-7-3 7Z" />
+            <path d="M8 21h8" />
+          </svg>
+        </span>
+        <div class="brand-copy">
+          <span class="brand-name">NyayaGraph</span>
+          <span class="brand-edition">IPC 1860 &harr; BNS 2023</span>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="Primary Workspace">
+        <button class="nav-tab is-active" type="button" data-view="research" aria-pressed="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          <span>Research Desk</span>
+        </button>
+        <button class="nav-tab" type="button" data-view="statutes" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          <span>Statutes &amp; Concordance</span>
+        </button>
+        <button class="nav-tab" type="button" data-view="compare" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M12 2v20"/></svg>
+          <span>Redline Diff</span>
+        </button>
+        <button class="nav-tab" type="button" data-view="system" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Verification &amp; System</span>
+        </button>
+      </nav>
+
+      <div class="topbar-actions">
+        <button id="quick-jump-btn" class="quick-jump-btn" type="button" title="Jump to section or search (Ctrl+K)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span>Section / Search</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <button id="health-pill" class="health-pill" type="button" aria-label="Backend system status">
+          <span class="health-dot"></span>
+          <span id="health-label">Connecting…</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="shell">
+    <!-- ==================== VIEW 1: RESEARCH DESK ==================== -->
+    <section id="view-research" class="view is-active" aria-label="Research Desk">
+      <div class="desk-grid">
+        <div class="desk-main">
+          <div class="folio-header">
+            <div class="eyebrow">Citation-Grounded Statutory Assistant</div>
+            <h1 class="folio-title">Indian Criminal Code &amp; Sanhita Research</h1>
+            <p class="folio-lead">
+              Every legal assertion is resolved against official statutory trees and verified through deterministic checks (<code>D1–D7</code>) plus claim-level NLI judging. Insufficient evidence triggers justified abstention.
+            </p>
+          </div>
+
+          <form id="ask-form" class="composer-card" novalidate>
+            <label for="ask-input" class="sr-only">Enter a legal research question</label>
+            <textarea
+              id="ask-input"
+              class="composer-textarea"
+              rows="3"
+              maxlength="1000"
+              placeholder="Ask about an offence, punishment, IPC-to-BNS transition, or post-July 2024 applicability…"
+            ></textarea>
+
+            <div class="prompt-chips" id="prompt-chips" aria-label="Sample queries">
+              <button type="button" class="chip" data-q="What replaced IPC 498A?">IPC 498A → BNS</button>
+              <button type="button" class="chip" data-q="What is the punishment for murder under the BNS?">Murder under BNS</button>
+              <button type="button" class="chip" data-q="How does BNS 106 differ from IPC 304A?">BNS 106 vs IPC 304A</button>
+              <button type="button" class="chip" data-q="Is there a BNS equivalent of IPC 497?">IPC 497 status</button>
+              <button type="button" class="chip" data-q="What happened to sedition, IPC 124A?">Sedition (124A)</button>
+              <button type="button" class="chip" data-q="What is the punishment under BNS section 999?">False premise (BNS 999)</button>
+            </div>
+
+            <div class="composer-footer">
+              <div class="composer-options">
+                <label class="toggle-control">
+                  <input type="checkbox" id="ask-debug" />
+                  <span>Include execution trace</span>
+                </label>
+                <span class="char-counter" id="ask-char-count">0 / 1000</span>
+              </div>
+              <button type="submit" id="ask-submit" class="btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <span>Analyze &amp; Verify</span>
+              </button>
+            </div>
+          </form>
+
+          <div id="ask-loading" class="loading-banner hidden" role="status" aria-live="polite">
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <div class="loading-text">
+              <strong>Running retrieval, graph expansion &amp; NLI verification</strong>
+              <span id="loading-sub">Hybrid search (bge-m3 + BM25) &rarr; generation &rarr; D1–D7 checks. Local models typically take 1–3 minutes.</span>
+            </div>
+            <span class="loading-timer" id="loading-timer">00:00</span>
+          </div>
+
+          <div id="ask-error" class="alert-banner alert-danger hidden" role="alert"></div>
+
+          <article id="answer-panel" class="brief-card hidden" aria-live="polite">
+            <div class="brief-header">
+              <div class="brief-status-row">
+                <span id="outcome-seal" class="seal"></span>
+                <span class="mono-tag" id="decision-rule-tag"></span>
+              </div>
+              <div class="brief-actions">
+                <button type="button" id="copy-brief-btn" class="btn-ghost" title="Copy brief markdown">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span>Copy Brief</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="kpi-strip" id="kpi-strip">
+              <div class="kpi-cell">
+                <span class="kpi-label">Decision</span>
+                <strong class="kpi-value" id="kpi-decision">—</strong>
+              </div>
+              <div class="kpi-cell">
+                <span class="kpi-label">Claim Support</span>
+                <strong class="kpi-value" id="kpi-support">—</strong>
+              </div>
+              <div class="kpi-cell">
+                <span class="kpi-label">Citations</span>
+                <strong class="kpi-value" id="kpi-citations">—</strong>
+              </div>
+              <div class="kpi-cell">
+                <span class="kpi-label">Pipeline Latency</span>
+                <strong class="kpi-value" id="kpi-latency">—</strong>
+              </div>
+            </div>
+
+            <div id="brief-body" class="brief-prose"></div>
+
+            <div id="unverified-box" class="alert-banner alert-warn hidden"></div>
+
+            <div class="audit-drawer">
+              <div class="drawer-tabs" role="tablist">
+                <button type="button" class="drawer-tab is-active" data-tab="checks" role="tab" aria-selected="true">Deterministic Checks (D1–D7)</button>
+                <button type="button" class="drawer-tab" data-tab="claims" role="tab" aria-selected="false">Claim Judge Verdicts</button>
+                <button type="button" class="drawer-tab hidden" id="trace-tab-btn" data-tab="trace" role="tab" aria-selected="false">Execution Trace</button>
+              </div>
+              <div class="drawer-pane is-active" id="drawer-checks" role="tabpanel"></div>
+              <div class="drawer-pane" id="drawer-claims" role="tabpanel"></div>
+              <div class="drawer-pane" id="drawer-trace" role="tabpanel"></div>
+            </div>
+
+            <footer class="brief-disclaimer" id="brief-disclaimer"></footer>
+          </article>
+
+          <div id="ask-empty" class="empty-folio">
+            <div class="empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M9 10h6"/><path d="M9 14h4"/></svg>
+            </div>
+            <h2>Select a prompt or enter a criminal law query</h2>
+            <p>
+              Answers cite explicit <code>[IPC:Section]</code> and <code>[BNS:Section]</code> identifiers verified against 939 indexed statutory sections and 510 concordance records.
+            </p>
+          </div>
+        </div>
+
+        <aside class="desk-rail" aria-label="Evidence and Concordance Inspector">
+          <div class="rail-card">
+            <div class="rail-header">
+              <h2>Concordance Lineage</h2>
+              <span class="mono-tag" id="mapping-count-tag">0 mappings</span>
+            </div>
+            <div id="rail-lineage" class="rail-body">
+              <p class="muted-empty">Concordance transitions and SVG relationship diagrams appear here when a query references mapped sections.</p>
+            </div>
+          </div>
+
+          <div class="rail-card">
+            <div class="rail-header">
+              <h2>Cited Passages</h2>
+              <span class="mono-tag" id="cite-count-tag">0 sources</span>
+            </div>
+            <div id="rail-citations" class="rail-body">
+              <p class="muted-empty">Click any inline citation badge inside a brief to inspect its verbatim statutory excerpt.</p>
+            </div>
+          </div>
+
+          <div class="rail-card">
+            <div class="rail-header">
+              <h2>Session History</h2>
+              <button type="button" id="clear-history-btn" class="link-btn">Clear</button>
+            </div>
+            <div id="rail-history" class="rail-body history-list">
+              <p class="muted-empty">Previous briefs in this browser session are cached locally for instant recall.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: STATUTES & CONCORDANCE ==================== -->
+    <section id="view-statutes" class="view" aria-label="Statutes and Concordance Explorer">
+      <div class="folio-header">
+        <div class="eyebrow">Direct Graph Lookup &amp; Hybrid Search</div>
+        <h1 class="folio-title">Statute &amp; Concordance Explorer</h1>
+        <p class="folio-lead">Inspect verbatim statutory text, qualifications, and recorded IPC ↔ BNS concordance mappings, or run a hybrid semantic + BM25 search.</p>
+      </div>
+
+      <div class="toolbar-card">
+        <div class="act-switch" role="group" aria-label="Select Act">
+          <button type="button" class="seg-btn is-active" data-act="IPC">IPC 1860</button>
+          <button type="button" class="seg-btn" data-act="BNS">BNS 2023</button>
+        </div>
+        <form id="statute-lookup-form" class="inline-form">
+          <label for="statute-num" class="sr-only">Section number or search phrase</label>
+          <input id="statute-num" class="text-input" type="text" value="498A" placeholder="Section (e.g. 302, 498A, 103) or semantic query (e.g. theft)" />
+          <button type="submit" class="btn-primary">Inspect Section</button>
+          <button type="button" id="statute-search-btn" class="btn-secondary">Hybrid Search</button>
+        </form>
+        <div class="quick-refs">
+          <span>Quick look:</span>
+          <button type="button" class="ref-link" data-uid="IPC:302">IPC:302</button>
+          <button type="button" class="ref-link" data-uid="BNS:103">BNS:103</button>
+          <button type="button" class="ref-link" data-uid="IPC:498A">IPC:498A</button>
+          <button type="button" class="ref-link" data-uid="IPC:304A">IPC:304A</button>
+          <button type="button" class="ref-link" data-uid="BNS:303">BNS:303</button>
+          <button type="button" class="ref-link" data-uid="IPC:124A">IPC:124A</button>
+        </div>
+      </div>
+
+      <div id="search-results-drawer" class="search-drawer hidden"></div>
+
+      <div id="statute-split" class="split-two">
+        <div class="panel-card" id="statute-text-pane">
+          <p class="muted-empty">Enter a section number (e.g. <code>498A</code> or <code>103</code>) to inspect statutory text and qualifiers.</p>
+        </div>
+        <div class="panel-card" id="statute-map-pane">
+          <p class="muted-empty">Mapped IPC ↔ BNS transition lineage and source evidence will appear here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: REDLINE DIFF ==================== -->
+    <section id="view-compare" class="view" aria-label="Side-by-Side Statutory Redline Diff">
+      <div class="folio-header">
+        <div class="eyebrow">Word-Level Provision Redline</div>
+        <h1 class="folio-title">Side-by-Side Statutory Comparison</h1>
+        <p class="folio-lead">Compare legacy IPC text against its mapped BNS successor (or any two sections directly) with word-level deletions, insertions, and qualifier inspection.</p>
+      </div>
+
+      <div class="toolbar-card">
+        <form id="compare-form" class="compare-form">
+          <div class="field-group">
+            <label for="cmp-left">Left UID (e.g. IPC:304A)</label>
+            <input id="cmp-left" class="text-input" type="text" value="IPC:304A" />
+          </div>
+          <button type="button" id="cmp-swap" class="btn-icon" title="Swap sections" aria-label="Swap left and right UIDs">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 7h12m0 0-4-4m4 4-4 4"/><path d="M16 17H4m0 0 4 4m-4-4 4-4"/></svg>
+          </button>
+          <div class="field-group">
+            <label for="cmp-right">Right UID (blank = auto-resolved target)</label>
+            <input id="cmp-right" class="text-input" type="text" placeholder="Auto-resolve from verified mapping" />
+          </div>
+          <button type="submit" class="btn-primary">Generate Redline</button>
+        </form>
+        <div class="quick-refs">
+          <span>Notable pairs:</span>
+          <button type="button" class="cmp-preset" data-left="IPC:304A" data-right="">IPC:304A → Mapped</button>
+          <button type="button" class="cmp-preset" data-left="IPC:302" data-right="BNS:103">IPC:302 vs BNS:103</button>
+          <button type="button" class="cmp-preset" data-left="IPC:379" data-right="BNS:303">IPC:379 vs BNS:303</button>
+          <button type="button" class="cmp-preset" data-left="IPC:420" data-right="BNS:318">IPC:420 vs BNS:318</button>
+        </div>
+      </div>
+
+      <div id="compare-output" class="compare-output">
+        <p class="muted-empty">Run a comparison above to inspect synchronized redlines.</p>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: VERIFICATION & SYSTEM ==================== -->
+    <section id="view-system" class="view" aria-label="Verification Sandbox and System Status">
+      <div class="folio-header">
+        <div class="eyebrow">Integrity Guardrails &amp; Live Runtime Telemetry</div>
+        <h1 class="folio-title">Verification Engine &amp; Deployment Health</h1>
+        <p class="folio-lead">Inspect live model/index health, corpus provenance boundaries, and test the deterministic legal guardrails (<code>D1–D7</code>) directly.</p>
+      </div>
+
+      <div class="split-two">
+        <div class="panel-card">
+          <div class="rail-header">
+            <h2>Live Backend Telemetry</h2>
+            <button type="button" id="refresh-health-btn" class="link-btn">Refresh</button>
+          </div>
+          <div id="system-telemetry"></div>
+        </div>
+
+        <div class="panel-card">
+          <h2>Deterministic Verifier Sandbox (<code>POST /verify</code>)</h2>
+          <p class="muted-small">Test how checks <code>D1–D7</code> validate draft text and citations against specific context UIDs.</p>
+          <form id="verify-form" class="stack-form">
+            <div class="field-group">
+              <label for="verify-uids">Context UIDs (comma-separated)</label>
+              <input id="verify-uids" class="text-input" type="text" value="BNS:103(1)" />
+            </div>
+            <div class="field-group">
+              <label for="verify-answer">Draft text with <code>[ACT:SECTION]</code> citations</label>
+              <textarea id="verify-answer" class="composer-textarea" rows="3">Whoever commits murder shall be punished with death or imprisonment for life, and shall also be liable to fine [BNS:103(1)].</textarea>
+            </div>
+            <button type="submit" class="btn-primary">Run Deterministic Checks</button>
+          </form>
+          <div id="verify-output" class="verify-output"></div>
+        </div>
+      </div>
+
+      <div class="panel-card scope-card">
+        <h2>Scope, Methodology &amp; Legal Notice</h2>
+        <div class="scope-grid">
+          <div>
+            <h3>Verification Rules (D1–D7)</h3>
+            <ul>
+              <li><code>D1 / D2</code>: Cited UIDs exist in the graph and were supplied in context.</li>
+              <li><code>D3</code>: Numeric punishments, imprisonment terms, and fines match source text.</li>
+              <li><code>D4 / D5</code>: IPC↔BNS relationship claims match graph mappings with source evidence.</li>
+              <li><code>D6</code>: Temporal cutoff honors <code>2024-06-30</code> (IPC) vs <code>2024-07-01</code> (BNS).</li>
+              <li><code>D7</code>: False premises (e.g., repealed/nonexistent section queries) are surfaced clearly.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Corpus Coverage &amp; Limits</h3>
+            <ul>
+              <li>Substantive offences under <strong>IPC (1860)</strong> and <strong>BNS (2023)</strong> only.</li>
+              <li>Procedure (CrPC / BNSS), Evidence (IEA / BSA), and case-law outcomes are out of scope.</li>
+              <li>“No direct equivalent” is stated only when a recorded <code>OMITTED</code> / <code>NEW</code> mapping exists; unmapped sections mean <em>unreviewed</em>.</li>
+              <li><strong>Not legal advice.</strong> Concordance rows marked <code>SEED-DRAFT</code> await formal advocate review.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Quick Jump Modal -->
+  <dialog id="jump-modal" class="modal" aria-labelledby="jump-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="jump-title">Jump to Section or Search Corpus</h2>
+        <button type="button" id="jump-close" class="btn-icon" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="jump-form" class="jump-form">
+        <input id="jump-input" class="text-input" type="text" placeholder="Type a UID (IPC:302, BNS:103) or search legal keywords…" autocomplete="off" />
+      </form>
+      <div id="jump-results" class="jump-results"></div>
+    </div>
+  </dialog>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

@@ -11,7 +11,7 @@ Implementation of [`docs/SOFTWARE_DESIGN_DOCUMENT.md`](docs/SOFTWARE_DESIGN_DOCU
 - **Provision-Level Legal Knowledge Graph**: Models `Act → Chapter → Section → Provision → Chunk` hierarchies alongside explicit `Mapping` nodes (`IDENTICAL`, `MODIFIED`, `SPLIT`, `MERGED`, `PARTIAL`, `OMITTED`, `NEW`) and source provenance (`EVIDENCED_BY`, page/row citations).
 - **4-Way Hybrid Retrieval + RRF**: Combines exact-section ID lookup (`IPC:302`, `BNS:103(1)`), dense semantic search (`BAAI/bge-m3`, 1024-d), legal-tokenized BM25, and bounded 2-hop graph expansion via Reciprocal Rank Fusion.
 - **Layered Verification Gate (`D1–D7` + Claim Judge)**: Checks citation existence/context grounding, numeric punishment fidelity, mapping accuracy/provenance, temporal cutoff rules (`2024-07-01`), false premises, and per-claim textual entailment before deciding to **Answer**, **Partial Answer** (disclosing gaps), **Retry Once**, or **Abstain**.
-- **Multiple Interfaces Over One Service Layer**: Unified `QAService` and `LawService` exposed via CLI (`lawrag`), FastAPI REST API (`lawrag serve`), modern Streamlit UI (`lawrag ui`), and an optional MCP stdio server (`lawrag mcp`).
+- **Multiple Interfaces Over One Service Layer**: Unified `QAService` and `LawService` exposed via a standalone **NyayaGraph Research Studio** web frontend served directly by FastAPI (`/`), REST API (`/docs`), CLI (`lawrag`), fallback Streamlit UI (`lawrag ui`), and an optional MCP stdio server (`lawrag mcp`).
 - **Dual Corpus Modes**: Includes a small `data/seed/` fixture for instant CI/testing and an end-to-end M2 PDF ingestion pipeline (`PyMuPDF` + `pdfplumber`) that ingests full Gazette/official PDFs into `data/processed/graph.json`.
 
 ---
@@ -55,7 +55,7 @@ Implementation of [`docs/SOFTWARE_DESIGN_DOCUMENT.md`](docs/SOFTWARE_DESIGN_DOCU
 | **Orchestration** | LangGraph state machine (`analyze_query → retrieve → graph_expand → fuse → build_context → generate → verify → decide`) with plain-Python fallback |
 | **LLM Providers** | Local `llama.cpp` (`llama-server` via `openai_compat`), Ollama (`llama3.2`), Anthropic (`claude-haiku-5-5` under `LAWRAG_BUDGET_USD`), or `FakeAdapter` |
 | **Document Processing** | PyMuPDF (`fitz`) for statutory text & marginal notes, `pdfplumber` for concordance tables, optional Tesseract OCR experiment |
-| **Web API & UI** | FastAPI + Uvicorn (single worker), Streamlit (`1.35+` / `1.67`), optional MCP stdio server |
+| **Web API & UI** | FastAPI + Uvicorn (single worker) serving the standalone NyayaGraph Web Studio (`src/lawrag/web/`), fallback Streamlit UI (`1.67`), optional MCP stdio server |
 | **Testing & Eval** | `pytest`, `pytest-cov`, `scipy`, `pandas`, `matplotlib` |
 
 ---
@@ -212,15 +212,23 @@ Expected output shows `OK` for Python (`3.11–3.12`), graph backend, `BAAI/bge-
 lawrag ask "What is the punishment for theft under BNS?" -c embedding/bge_m3.yaml -c providers/llama_server.yaml
 ```
 
-**Option 2 — Full Web Application (two terminals):**
+**Option 2 — NyayaGraph Web Studio + REST API (Single Server — Recommended):**
 
-Terminal 1 — Start the FastAPI backend (`http://127.0.0.1:8000`, OpenAPI docs at `/docs`):
+Start FastAPI (`lawrag serve`)—it serves both the standalone editorial Web Studio UI at **`http://127.0.0.1:8000/`** and OpenAPI docs at **`http://127.0.0.1:8000/docs`**:
 
 ```powershell
 lawrag serve -c embedding/bge_m3.yaml -c providers/llama_server.yaml
 ```
 
-Terminal 2 — Start the Streamlit UI (`http://localhost:8501`):
+The Web Studio includes four workspaces:
+- **Research Desk** (`POST /ask`): Split workspace with clickable inline citation chips, live inference stopwatch, interactive SVG concordance lineage diagrams, `D1–D7` / Claim NLI tabs, and `localStorage` session history.
+- **Statutes & Concordance** (`GET /sections/{uid}`, `GET /mappings/{uid}`, `POST /search`, `Ctrl+K` quick jump): Direct UID inspection and hybrid semantic/BM25 search.
+- **Redline Diff** (`POST /compare`): Synchronized word-level statutory diff viewer.
+- **Verification & System** (`GET /health`, `POST /verify`): Live runtime telemetry and interactive `D1–D7` verifier sandbox.
+
+**Option 3 — Optional Streamlit UI (`:8501`):**
+
+If you also want the fallback Streamlit client alongside `lawrag serve`, run in a second terminal:
 
 ```powershell
 lawrag ui
@@ -257,7 +265,7 @@ flowchart TB
 
     subgraph ONLINE["ONLINE · Question answering (LangGraph)"]
         direction TB
-        UI["<b>Streamlit UI › FastAPI</b><br/>user question"]
+        UI["<b>NyayaGraph Web Studio › FastAPI</b><br/>(or Streamlit UI)"]
         QA["<b>Query analysis</b><br/>section-ID normalisation, intent, dates"]
         EX["<b>Exact-ID lookup</b><br/>IPC 302, BNS 103"]
         VS["<b>Vector search</b><br/>bge-m3"]
@@ -398,8 +406,9 @@ Every draft passes two sequential verification stages:
 │   ├── verify/                     # Deterministic checks D1–D7, claim decomposition, judge, decide
 │   ├── qa/                         # LangGraph QA state machine & retry planner
 │   ├── services/                   # Deps container, QAService, LawService
-│   ├── api/                        # FastAPI app factory, CORS, exception handlers, routes
-│   ├── ui/                         # Streamlit frontend (streamlit_app.py) + pure formatting helpers
+│   ├── api/                        # FastAPI app factory, CORS, exception handlers, static mount & routes
+│   ├── web/                        # Standalone NyayaGraph Web Studio (index.html, styles.css, app.js)
+│   ├── ui/                         # Fallback Streamlit UI (streamlit_app.py) + pure formatting helpers
 │   ├── mcp_server/                 # Optional stdio MCP server over QAService / LawService
 │   └── eval/                       # Gold validation, split lock, paired experiment runner, reports
 ├── tests/
@@ -417,6 +426,7 @@ When running `lawrag serve`, FastAPI exposes interactive OpenAPI docs at `http:/
 
 | Method | Path | Description |
 |---|---|---|
+| `GET` | `/`, `/static/*` | Serves the standalone NyayaGraph Research Studio web frontend (`src/lawrag/web/`) |
 | `GET` | `/health` | Graph status, embedder model ID, BM25 status, LLM reachability, cutoff dates, snapshot/corpus hashes, remaining hosted budget |
 | `POST` | `/ask` | Runs the full QA workflow (`{"question": "...", "options": {"debug": false}}`) |
 | `GET` | `/sections/{uid}` | Retrieves full section text, sub-provisions, qualifiers, amendment notes, and source citation |
@@ -475,16 +485,17 @@ Run `lawrag --help` for full option lists:
 All fast unit, integration, and adversarial tests run offline using `hashing-512` and `FakeAdapter`:
 
 ```powershell
-# Fast offline suite (190 tests: skips slow model-download, Neo4j, and live Ollama tests)
+# Fast offline suite (191 tests: skips slow model-download, Neo4j, and live Ollama tests)
 pytest -m "not slow and not neo4j and not ollama"
 
 # With coverage report
 pytest -m "not slow and not neo4j and not ollama" --cov=lawrag
 ```
 
-To also run Streamlit UI headless smoke checks:
+To syntax-check the Web Studio JS and run Streamlit UI headless smoke checks:
 
 ```powershell
+node --check src/lawrag/web/app.js
 python -c "from streamlit.testing.v1 import AppTest; AppTest.from_file('src/lawrag/ui/streamlit_app.py').run(timeout=15)"
 ```
 
@@ -526,14 +537,14 @@ Then pass a config overlay setting `graph: {backend: neo4j}` to `lawrag load` an
 
 > **Single-worker requirement:** Always run FastAPI with `--workers 1` (`uvicorn ... --workers 1` or `lawrag serve`). `MemoryGraphStore`, the BM25 index, and `SentenceTransformerEmbedder` (`BAAI/bge-m3`) live in-process; multiple workers multiply RAM usage (~2 GB per worker) and do not share the in-memory budget guard.
 
-Because there is no app-level `Dockerfile` yet, deploy either on a VM/container host running two processes behind a reverse proxy (e.g. Nginx/Caddy) or containerize Python 3.12 with these commands:
+Because there is no app-level `Dockerfile` yet, deploy on a VM/container host behind a reverse proxy (e.g. Nginx/Caddy) or containerize Python 3.12. Running FastAPI alone serves **both** the REST API and the NyayaGraph Web Studio frontend at `/`:
 
 ```bash
-# Process 1: FastAPI backend (reads overlays from LAWRAG_CONFIG)
+# Primary server: FastAPI API + NyayaGraph Web Studio at http://0.0.0.0:8000/
 export LAWRAG_CONFIG="embedding/bge_m3.yaml,providers/llama_server.yaml"
 uvicorn lawrag.api.app:create_app --factory --host 0.0.0.0 --port 8000 --workers 1
 
-# Process 2: Streamlit frontend (headless + CORS/XSRF configured in .streamlit/config.toml)
+# Optional fallback Streamlit UI (only if deploying :8501 separately)
 export LAWRAG_API="http://127.0.0.1:8000"
 streamlit run src/lawrag/ui/streamlit_app.py --server.port 8501 --server.address 0.0.0.0
 ```

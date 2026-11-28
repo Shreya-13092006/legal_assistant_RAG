@@ -37,7 +37,6 @@ EXAMPLES = [
 
 st.set_page_config(
     page_title="NyayaGraph · IPC ↔ BNS Legal Assistant",
-    page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -204,8 +203,8 @@ health, herr = call("GET", "/health", timeout=10)
 graph_down = bool(herr) or (health is not None and health.get("status") != "ok")
 
 with st.sidebar:
-    st.markdown("## ⚖️ NyayaGraph")
-    st.caption("Verified IPC 1860 ↔ BNS 2023 Statutory RAG")
+    st.markdown("## NyayaGraph")
+    st.caption(f"Verified IPC 1860 ↔ BNS 2023 Statutory RAG · [Web Studio]({API}/)")
 
     if herr:
         st.markdown("<span class='stat-pill stat-pill-err'>Backend Offline</span>", unsafe_allow_html=True)

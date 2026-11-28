@@ -60,3 +60,10 @@ def test_search_and_verify(client):
     v = client.post("/verify", json={"answer": "See [BNS:999].", "context_uids": ["BNS:103(1)"]}).json()
     checks = {c["check"]: c["passed"] for c in v["deterministic"]["checks"]}
     assert checks["D1"] is False
+
+
+def test_web_studio_assets(client):
+    r = client.get("/")
+    assert r.status_code == 200 and "NyayaGraph" in r.text
+    assert client.get("/static/styles.css").status_code == 200
+    assert client.get("/static/app.js").status_code == 200

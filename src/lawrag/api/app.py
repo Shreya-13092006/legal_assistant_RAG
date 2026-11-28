@@ -3,11 +3,13 @@ from __future__ import annotations
 
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from lawrag.api.deps import set_state
 from lawrag.api.routes import router
@@ -49,6 +51,14 @@ def create_app(deps: Deps | None = None) -> FastAPI:
         return _error("VALIDATION_ERROR", "invalid request", 422, {"errors": errs})
 
     app.include_router(router)
+    web_dir = Path(__file__).resolve().parents[1] / "web"
+    if web_dir.is_dir():
+        app.mount("/static", StaticFiles(directory=str(web_dir)), name="static")
+
+        @app.get("/", include_in_schema=False)
+        async def web_index():
+            return FileResponse(web_dir / "index.html")
+
     if deps is not None:
         set_state(deps)
     return app
