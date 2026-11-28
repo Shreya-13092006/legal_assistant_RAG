@@ -37,7 +37,7 @@ lawrag = "lawrag.cli:app"
 where = ["src"]
 
 [tool.setuptools.package-data]
-lawrag = ["graph/*.cypher", "llm/prompts/*.md"]
+lawrag = ["graph/*.cypher", "llm/prompts/*.md", "web/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

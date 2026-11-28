@@ -16,7 +16,7 @@ STATUS_BADGE = {
     "proposed": ("Proposed", "#475569", "#F1F5F9", "#CBD5E1"),
     "rejected": ("Rejected", "#B91C1C", "#FEF2F2", "#FECACA"),
 }
-VERDICT_ICON = {"SUPPORTED": "✅", "CONTRADICTED": "❌", "NOT_ENOUGH_INFO": "❔", None: "–"}
+VERDICT_ICON = {"SUPPORTED": "[PASS]", "CONTRADICTED": "[FAIL]", "NOT_ENOUGH_INFO": "[GAP]", None: "—"}
 
 
 def badge(label: str, fg: str, bg: str = "", border: str = "") -> str:
