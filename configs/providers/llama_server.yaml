@@ -1,11 +1,11 @@
 # Remote or local llama.cpp server (llama-server OpenAI-compatible endpoint; override via .env)
 llm:
   roles:
-    generator:         {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:gemma-4-E4B-it-uncensored-Q4_K_M.gguf}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 2048}
-    decomposer:        {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:gemma-4-E4B-it-uncensored-Q4_K_M.gguf}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 1024}
-    judge:             {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:gemma-4-E4B-it-uncensored-Q4_K_M.gguf}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 1024}
-    analyzer_fallback: {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:gemma-4-E4B-it-uncensored-Q4_K_M.gguf}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 512}
-    eval_judge:        {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:gemma-4-E4B-it-uncensored-Q4_K_M.gguf}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 1024}
+    generator:         {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:auto}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 2048}
+    decomposer:        {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:auto}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 1024}
+    judge:             {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:auto}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 1024}
+    analyzer_fallback: {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:auto}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 512}
+    eval_judge:        {provider: openai_compat, model: "${LLAMA_SERVER_MODEL:auto}", base_url: "${LLAMA_SERVER_URL:http://127.0.0.1:8080/v1}", max_tokens: 1024}
   timeout_s: 300
   prices_per_mtok:
     "openai_compat/*": {input: 0.0, output: 0.0}
