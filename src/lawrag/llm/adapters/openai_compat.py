@@ -24,6 +24,8 @@ class OpenAICompatAdapter:
         if json_schema:
             body["response_format"] = {"type": "json_object"}
         headers = {}
+        if "ngrok" in self.base_url.lower():
+            headers["ngrok-skip-browser-warning"] = "true"
         if os.environ.get("OPENAI_API_KEY"):
             headers["Authorization"] = f"Bearer {os.environ['OPENAI_API_KEY']}"
         try:
